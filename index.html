@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Select Role</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        
+
+        .container {
+            width: 420px;
+            background: #ffffff;
+            padding: 25px;
+            margin: 80px auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 30px;
+            font-size: 26px;
+        }
+
+        .btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .btn {
+            padding: 14px;
+            font-size: 18px;
+            border-radius: 10px;
+            border: none;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn:hover {
+            transform: scale(1.03);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+        }
+
+        /* Button colors */
+        .customer {
+            background: #1e88e5;   /* Blue */
+        }
+
+        .retailer {
+            background: #43a047;   /* Green */
+        }
+
+        .wholesaler {
+            background: #f4511e;   /* Orange */
+        }
+    </style>
+</head>
+
+<body>
+
+
+
+<div class="page">
+
+    <div class="hero-text">
+        <h1 class="site-title">StoreConnect</h1>
+        <p class="subtitle">Please select your login type</p>
+    </div>
+
+    <div class="container">
+        <h2>Select Login Type</h2>
+
+        <div class="btn-group">
+            <button class="customer" onclick="goToPage('Customer')">Customer</button>
+            <button class="retailer" onclick="goToPage('Retailer')">Retailer</button>
+            <button class="wholesaler" onclick="goToPage('Wholesaler')">Wholesaler</button>
+        </div>
+    </div>
+
+</div>
+
+
+<!-- JS MUST BE AT THE BOTTOM -->
+<script>
+function goToPage(role) {
+    console.log("Button clicked:", role);
+
+    if (role === "Customer") {
+        window.location.href = "items.html?role=Customer";
+    } 
+    else if (role === "Retailer") {
+        window.location.href = "retailers_items.html?role=Retailer";
+    } 
+    else if (role === "Wholesaler") {
+        window.location.href = "wholesalers_items.html?role=Wholesaler";
+    }
+}
+</script>
+
+</body>
+</html>

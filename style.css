@@ -1,0 +1,150 @@
+/* ===== FULL PAGE ANIMATED BACKGROUND ===== */
+body {
+    margin: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    min-height: 100vh;
+
+    background: linear-gradient(270deg, #e0eafc, #cfdef3, #dbeafe);
+    background-size: 600% 600%;
+    animation: bgMove 12s ease infinite;
+}
+
+/* Background animation */
+@keyframes bgMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* ===== PAGE WRAPPER ===== */
+.page-wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ===== WEBSITE NAME ===== */
+.site-title {
+    font-size: 36px;
+    font-weight: 700;
+    color: #1e3a8a;
+    margin-bottom: 6px;
+    animation: fadeDown 1.2s ease;
+    text-align: center;
+}
+
+/* ===== SUBTITLE ===== */
+.subtitle {
+    font-size: 17px;
+    color: #374151;
+    margin-bottom: 22px;
+    animation: fadeDown 1.2s ease;
+    text-align: center;
+}
+
+/* Text animations */
+@keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== MAIN CARD ===== */
+.container {
+    width: 380px;
+    padding: 30px;
+    background: white;
+    border-radius: 14px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+    text-align: center;
+    animation: scaleIn 0.8s ease;
+}
+
+@keyframes scaleIn {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.container h2 {
+    margin-bottom: 25px;
+    color: #111827;
+}
+
+/* ===== BUTTON GROUP ===== */
+.btn-group {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* Buttons base */
+.btn-group button {
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    color: white;
+    cursor: pointer;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* Gradient buttons */
+.customer {
+    background: linear-gradient(135deg, #42a5f5, #1e88e5);
+}
+
+.retailer {
+    background: linear-gradient(135deg, #66bb6a, #2e7d32);
+}
+
+.wholesaler {
+    background: linear-gradient(135deg, #ff7043, #e64a19);
+}
+
+/* Hover effect */
+.btn-group button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+}
+
+
+
+
+/* ===== PAGE TRANSITION ===== */
+
+/* Initial hidden state */
+.page {
+    opacity: 0;
+    transform: translateY(8px);
+    animation: pageFadeIn 0.6s ease forwards;
+}
+
+/* Fade-in animation */
+@keyframes pageFadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Fade-out before leaving */
+.fade-out {
+    opacity: 0 !important;
+    transform: translateY(-6px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+
+
+
+
+
+
+

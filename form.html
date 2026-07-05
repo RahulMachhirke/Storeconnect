@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Information Form</title>
+
+    <!-- Optional: if you already have a global stylesheet -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Page-specific styling for form -->
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #eef2f7, #dbeafe);
+            font-family: "Segoe UI", Arial, sans-serif;
+        }
+
+        .container {
+            width: 420px;
+            background: white;
+            padding: 25px;
+            border-radius: 14px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        #cartDetails {
+            background: #f8fafc;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-top: 12px;
+            font-weight: 600;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 70px;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 20px;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: #16a34a;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #15803d;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1 id="roleTitle">Information</h1>
+
+    <div id="cartDetails" style="display:none;">
+        <h3>Selected Items:</h3>
+        <ul id="cartList"></ul>
+    </div>
+
+    <form id="infoForm">
+        <label>Name:</label>
+        <input id="name" type="text" required>
+
+        <label>Email:</label>
+        <input id="email" type="email" required>
+
+        <label>Mobile Number:</label>
+        <input id="phone" type="tel" required>
+
+        <label>Address:</label>
+        <textarea id="address" required></textarea>
+
+        <button type="submit">Submit Order</button>
+    </form>
+</div>
+
+<script>
+// Get role from URL
+const params = new URLSearchParams(window.location.search);
+const role = params.get("role") || "User";
+document.getElementById("roleTitle").textContent = role + " Information";
+
+// Load cart
+const cart = JSON.parse(localStorage.getItem("cartItems") || "{}");
+const cartListEl = document.getElementById("cartList");
+
+if (Object.keys(cart).length > 0) {
+    document.getElementById("cartDetails").style.display = "block";
+
+    for (let item in cart) {
+        const li = document.createElement("li");
+        li.textContent = `${item}: ${cart[item]}`;
+        cartListEl.appendChild(li);
+    }
+}
+
+// Submit order
+document.getElementById("infoForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const order = {
+        role: role,
+        customer: {
+            name: name.value,
+            email: email.value,
+            phone: phone.value,
+            address: address.value
+        },
+        items: cart
+    };
+
+    fetch("https://storeconnect-asb4.onrender.com/api/orders", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(order)
+    })
+    .then(res => res.json())
+    .then(data => {
+    // Save role for success page
+    localStorage.setItem("orderRole", role);
+
+    // cartItems is already saved earlier — don't delete it yet
+
+    // Go to success page
+    window.location.href = "success.html";
+})
+
+
+    .catch(err => {
+        alert("Error submitting order");
+        console.error(err);
+    });
+});
+</script>
+
+</body>
+</html>
+

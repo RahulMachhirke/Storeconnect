@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Wholesaler – Bulk Items</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .item-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .item-row input[type="checkbox"] {
+            margin-right: 10px;
+        }
+
+        .item-row span {
+            width: 180px;
+            display: inline-block;
+        }
+
+        .item-row input[type="number"] {
+            width: 80px;
+        }
+
+        .container {
+            width: 480px;
+            margin: auto;
+            padding-top: 20px;
+        }
+
+        button {
+            width: 100%;
+            background: #1a7f1a;
+            color: white;
+            padding: 12px;
+            font-size: 18px;
+            border-radius: 7px;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <h1>Wholesaler – Bulk Items</h1>
+
+    <div id="wholesalerList">
+
+        <div class="item-row">
+            <input type="checkbox" value="Rice Bag (50 kg)">
+            <span>Rice Bag (50 kg)</span>
+            <input type="number" min="1" placeholder="Bags">
+        </div>
+
+        <div class="item-row">
+            <input type="checkbox" value="Wheat Flour Bag (50 kg)">
+            <span>Wheat Flour Bag (50 kg)</span>
+            <input type="number" min="1" placeholder="Bags">
+        </div>
+
+        <div class="item-row">
+            <input type="checkbox" value="Sugar Bag (50 kg)">
+            <span>Sugar Bag (50 kg)</span>
+            <input type="number" min="1" placeholder="Bags">
+        </div>
+
+        <div class="item-row">
+            <input type="checkbox" value="Salt Bag (25 kg)">
+            <span>Salt Bag (25 kg)</span>
+            <input type="number" min="1" placeholder="Bags">
+        </div>
+
+        <div class="item-row">
+            <input type="checkbox" value="Oil Can (15 Litres)">
+            <span>Oil Can (15 Litres)</span>
+            <input type="number" min="1" placeholder="Cans">
+        </div>
+
+        <div class="item-row">
+            <input type="checkbox" value="Chips Box (20 packets)">
+            <span>Chips Box (20 packets)</span>
+            <input type="number" min="1" placeholder="Boxes">
+        </div>
+
+        <div class="item-row">
+            <input type="checkbox" value="Soft Drinks Crate (24 bottles)">
+            <span>Soft Drinks Crate (24 bottles)</span>
+            <input type="number" min="1" placeholder="Crates">
+        </div>
+
+        <div class="item-row">
+            <input type="checkbox" value="Biscuit Carton (50 packets)">
+            <span>Biscuit Carton (50 packets)</span>
+            <input type="number" min="1" placeholder="Cartons">
+        </div>
+
+        <div class="item-row">
+            <input type="checkbox" value="Detergent Sack (25 kg)">
+            <span>Detergent Sack (25 kg)</span>
+            <input type="number" min="1" placeholder="Sacks">
+        </div>
+
+    </div>
+
+    <button onclick="goToForm()">Next</button>
+
+</div>
+
+<script>
+// Cart for wholesaler
+let wholesalerCart = {};
+
+// Update cart when checkbox or qty changes
+document.querySelectorAll('.item-row').forEach(row => {
+    const checkbox = row.querySelector("input[type='checkbox']");
+    const qty      = row.querySelector("input[type='number']");
+
+    function updateCart() {
+        if (checkbox.checked && qty.value.trim() !== "") {
+            wholesalerCart[checkbox.value] = qty.value;
+        } else {
+            delete wholesalerCart[checkbox.value];
+        }
+    }
+
+    checkbox.addEventListener("change", updateCart);
+    qty.addEventListener("input", updateCart);
+});
+
+// When Next is clicked
+function goToForm() {
+    if (Object.keys(wholesalerCart).length === 0) {
+        alert("Please select at least one bulk item before continuing.");
+        return;
+    }
+
+    // Save cart to localStorage (same key as other roles)
+    localStorage.setItem("cartItems", JSON.stringify(wholesalerCart));
+
+    // Redirect to form
+    window.location.href = "form.html?role=Wholesaler";
+}
+</script>
+
+</body>
+</html>
